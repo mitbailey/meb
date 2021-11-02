@@ -1,5 +1,5 @@
 /**
- * @file gs_debug.hpp
+ * @file gs_debug.h
  * @author Mit Bailey (mitbailey99@gmail.com)
  * @brief Contains debug-related macros and function-like macros.
  * @version 0.2
@@ -11,8 +11,10 @@
  * 
  */
 
-#ifndef MEB_DEBUG_HPP
-#define MEB_DEBUG_HPP
+#ifndef MEB_DEBUG_H
+#define MEB_DEBUG_H
+
+#include <stdio.h>
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
 #define TERMINATOR
@@ -89,4 +91,4 @@
     }
 #endif // erprintlf
 
-#endif // MEB_DEBUG_HPP
+#endif // MEB_DEBUG_H
