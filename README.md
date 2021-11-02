@@ -1,4 +1,7 @@
-# meb_debug
+# meb
+Helpful code snippets and references.
+
+## meb_debug.h
 stderr-based debug printouts for C programs.
   
     
