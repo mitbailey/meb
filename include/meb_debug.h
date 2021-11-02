@@ -2,27 +2,27 @@
  * @file gs_debug.h
  * @author Mit Bailey (mitbailey99@gmail.com)
  * @brief Contains debug-related macros and function-like macros.
- * @version 0.2
+ * @version 1.0
  * @date 2021.07.26
- * 
+ *
  * With revisions by Sunip K. Mukherjee.
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #ifndef MEB_DEBUG_H
 #define MEB_DEBUG_H
 
-#include <stdio.h>
+#ifdef _STDIO_H
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
 #define TERMINATOR
 #ifndef MEB_COLORS
 #define MEB_COLORS
-#define RESET_ALL 
+#define RESET_ALL
 #define RED_FG
-#define GREEN_FG 
+#define GREEN_FG
 #define YELLOW_FG
 #define BLUE_FG
 #define MAGENTA_FG
@@ -80,15 +80,20 @@
     }
 #endif // dbprintf
 
+// Intended for use with errno.h; also requires string.h.
+#ifdef _ERRNO_H
+#ifdef _STRING_H
 #ifndef erprintlf
-#define erprintlf(error)                                               \
-    {                                                                  \
-        fprintf(stderr, "[%s:%d | %s] "                                \
-                        BLUE_FG                                     \
-                        ">>> %d: %s" TERMINATOR "\n",                  \
-                __FILE__, __LINE__, __func__, error, strerror(error)); \
-        fflush(stderr);                                                \
+#define erprintlf(error)                                                      \
+    {                                                                         \
+        fprintf(stderr, "[%s:%d | %s] " RED_FG "ERRNO >>> %d:"RESET_ALL" %s" TERMINATOR "\n", \
+                __FILE__, __LINE__, __func__, error, strerror(error));        \
+        fflush(stderr);                                                       \
     }
 #endif // erprintlf
+#endif // _STRING_H
+#endif // _ERRNO_H
+
+#endif // _STDIO_H
 
 #endif // MEB_DEBUG_H
