@@ -14,7 +14,7 @@
 #ifndef MEB_DEBUG_H
 #define MEB_DEBUG_H
 
-#ifdef _STDIO_H
+#if defined(_STDIO_H) || defined(_INC_STDIO)
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
 #define TERMINATOR
