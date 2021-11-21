@@ -80,6 +80,22 @@
     }
 #endif // dbprintf
 
+#ifndef bprintf
+#define bprintf(str, ...)                     \
+    {                                         \
+        printf(str "\x1b[0m", ##__VA_ARGS__); \
+        fflush(stdout);                       \
+    }
+#endif // bprintf
+
+#ifndef bprintlf
+#define bprintlf(str, ...)                       \
+    {                                            \
+        printf(str "\x1b[0m \n", ##__VA_ARGS__); \
+        fflush(stdout);                          \
+    }
+#endif // bprintlf
+
 // Intended for use with errno.h; also requires string.h.
 #ifdef _ERRNO_H
 #ifdef _STRING_H
@@ -93,6 +109,37 @@
 #endif // erprintlf
 #endif // _STRING_H
 #endif // _ERRNO_H
+
+// Requires time.h.
+#ifdef _TIME_H
+static char *get_time_now()
+{
+    static __thread char buf[128];
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    snprintf(buf, sizeof(buf), GREEN_FG "[" YELLOW_FG "%02d:%02d:%02d" GREEN_FG "] "
+                                        "\x1b[0m",
+             tm.tm_hour, tm.tm_min, tm.tm_sec);
+    return buf;
+}
+
+#ifndef tprintf
+#define tprintf(str, ...)                                          \
+    {                                                              \
+        printf("%s" str "\x1b[0m", get_time_now(), ##__VA_ARGS__); \
+        fflush(stdout);                                            \
+    }
+#endif
+
+#ifndef tprintlf
+#define tprintlf(str, ...)                                           \
+    {                                                                \
+        printf("%s" str "\x1b[0m\n", get_time_now(), ##__VA_ARGS__); \
+        fflush(stdout);                                              \
+    }
+#endif
+#endif // _TIME_H
+
 
 #endif // _STDIO_H
 
