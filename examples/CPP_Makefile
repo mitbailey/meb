@@ -1,9 +1,11 @@
 CXX = g++
+CC = gcc
 CPPOBJS = src/main.o src/example.o
 COBJS = drivers/driver.o
 EDCXXFLAGS = -I ./ -I ./include/ -Wall -pthread $(CXXFLAGS)
-EDLDFLAGS :=
-TARGET = sim.out
+EDCFLAGS = $(CFLAGS)
+EDLDFLAGS := -lpthread -lm $(LDFLAGS)
+TARGET = example.out
 
 all: $(COBJS) $(CPPOBJS)
 	$(CXX) $(EDCXXFLAGS) $(COBJS) $(CPPOBJS) -o $(TARGET) $(EDLDFLAGS)
@@ -13,7 +15,7 @@ all: $(COBJS) $(CPPOBJS)
 	$(CXX) $(EDCXXFLAGS) -o $@ -c $<
 
 %.o: %.c
-	$(CXX) $(EDCXXFLAGS) -o $@ -c $<
+	$(CC) $(EDCFLAGS) -o $@ -c $<
 
 .PHONY: clean
 

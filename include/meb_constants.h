@@ -14,20 +14,20 @@
 
 // Requires math.h or equivalent M_PI definition.
 #ifdef M_PI
-#ifndef MEB_RAD2DEG
-#define MEB_RAD2DEG
-#define RAD2DEG(radians) (radians * (180.0 / M_PI))
+#ifndef MEB_RAD_TO_DEG
+#define MEB_RAD_TO_DEG
+#define RAD_TO_DEG(radians) (radians * (180.0 / M_PI))
 #endif // MEB_RAD2DEG
-#ifndef MEB_DEG2RAD
-#define MEB_DEG2RAD
-#define DEG2RAD(degrees) (degrees * (M_PI / 180.0))
+#ifndef MEB_DEG_TO_RAD
+#define MEB_DEG_TO_RAD
+#define DEG_TO_RAD(degrees) (degrees * (M_PI / 180.0))
 #endif // MEB_DEG2RAD
 #endif // M_PI
 
 // Intended for use with usleep(1 SEC).
-#ifndef MEB_SEC
-#define MEB_SEC
-#define SEC *1000000
-#endif // MEB_SEC
+#ifndef MEB_SEC_TO_USEC
+#define MEB_SEC_TO_USEC
+#define SEC_TO_USEC(seconds) (seconds * 1000000)
+#endif // MEB_SEC_TO_USEC
 
 #endif // MEB_CONSTANTS_H

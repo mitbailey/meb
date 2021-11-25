@@ -1,8 +1,8 @@
 CC = gcc
 COBJS = src/main.o src/example.o drivers/driver.o
 EDCFLAGS = -I ./ -I ./include/ -Wall -pthread $(CFLAGS)
-EDLDFLAGS :=
-TARGET = sim.out
+EDLDFLAGS := -lpthread -lm $(LDFLAGS)
+TARGET = example.out
 
 all: $(COBJS)
 	$(CC) $(EDCFLAGS) $(COBJS) -o $(TARGET) $(EDLDFLAGS)
