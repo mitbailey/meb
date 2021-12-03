@@ -14,7 +14,7 @@
 #ifndef MEB_PRINT_H
 #define MEB_PRINT_H
 
-#if defined(_STDIO_H) || defined(_INC_STDIO)
+#include <stdio.h>
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
 #define TERMINATOR
@@ -64,8 +64,99 @@
 #endif // MEB_CODES
 #endif
 
+#if !defined(_MSC_VER)
+#ifndef dbprintlf
+#define dbprintlf(format, ...)                                                                                                  \
+    (                                                                                                                           \
+        {                                                                                                                       \
+            int _meb_rc = fprintf(stderr, "[%s:%d | %s] " format TERMINATOR "\n", __FILE__, __LINE__, __func__, ##__VA_ARGS__); \
+            fflush(stderr);                                                                                                     \
+            _meb_rc;                                                                                                            \
+        })
+#endif // dbprintlf
+
+#ifndef dbprintf
+#define dbprintf(format, ...)                                                                                              \
+    (                                                                                                                      \
+        {                                                                                                                  \
+            int _meb_rc = fprintf(stderr, "[%s:%d | %s] " format TERMINATOR, __FILE__, __LINE__, __func__, ##__VA_ARGS__); \
+            fflush(stderr);                                                                                                \
+            _meb_rc;                                                                                                       \
+        })
+#endif // dbprintf
+
+#ifndef bprintf
+#define bprintf(str, ...)                                        \
+    (                                                            \
+        {                                                        \
+            int _meb_rc = printf(str TERMINATOR, ##__VA_ARGS__); \
+            fflush(stdout);                                      \
+            _meb_rc;                                             \
+        })
+#endif // bprintf
+
+#ifndef bprintlf
+#define bprintlf(str, ...)                                             \
+    (                                                                  \
+        {                                                              \
+            int _meb_rc = printf(str TERMINATOR " \n", ##__VA_ARGS__); \
+            fflush(stdout);                                            \
+            _meb_rc;                                                   \
+        })
+#endif // bprintlf
+
+// Intended for use with errno.h; also requires string.h.
+#ifdef _ERRNO_H
+#ifdef _STRING_H
+#ifndef erprintlf
+#define erprintlf(error)                                                                                          \
+    (                                                                                                             \
+        {                                                                                                         \
+            int _meb_rc = fprintf(stderr, "[%s:%d | %s] " RED_FG "ERRNO >>> %d:" RESET_ALL " %s" TERMINATOR "\n", \
+                                  __FILE__, __LINE__, __func__, error, strerror(error));                          \
+            fflush(stderr);                                                                                       \
+            _meb_rc;                                                                                              \
+        })
+#endif // erprintlf
+#endif // _STRING_H
+#endif // _ERRNO_H
+
+// Requires time.h.
+#ifdef _TIME_H
+static char *get_time_now()
+{
+    static __thread char buf[128];
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    snprintf(buf, sizeof(buf), YELLOW_FG "[" YELLOW_FG "%02d:%02d:%02d" YELLOW_FG "] " TERMINATOR,
+             tm.tm_hour, tm.tm_min, tm.tm_sec);
+    return buf;
+}
+
+#ifndef tprintf
+#define tprintf(str, ...)                                                             \
+    (                                                                                 \
+        {                                                                             \
+            int _meb_rc = printf("%s" str TERMINATOR, get_time_now(), ##__VA_ARGS__); \
+            fflush(stdout);                                                           \
+            _meb_rc;                                                                  \
+        })
+#endif
+
+#ifndef tprintlf
+#define tprintlf(str, ...)                                                                 \
+    (                                                                                      \
+        {                                                                                  \
+            int _meb_rc = printf("%s" str TERMINATOR "\n", get_time_now(), ##__VA_ARGS__); \
+            fflush(stdout);                                                                \
+            _meb_rc;                                                                       \
+        })
+#endif
+#endif // _TIME_H
+#else
 #ifndef dbprintlf
 #define dbprintlf(format, ...)                                                                                \
+    0;                                                                                                        \
     {                                                                                                         \
         fprintf(stderr, "[%s:%d | %s] " format TERMINATOR "\n", __FILE__, __LINE__, __func__, ##__VA_ARGS__); \
         fflush(stderr);                                                                                       \
@@ -73,26 +164,30 @@
 #endif // dbprintlf
 
 #ifndef dbprintf
-#define dbprintf(format, ...)                                                                            \
-    {                                                                                                    \
-        fprintf(stderr, "[%s:%d | %s] " format TERMINATOR, __FILE__, __LINE__, __func__, ##__VA_ARGS__); \
-        fflush(stderr);                                                                                  \
+#define dbprintf(format, ...)                                                                                          \
+    0;                                                                                                                 \
+    {                                                                                                                  \
+        int _meb_rc = fprintf(stderr, "[%s:%d | %s] " format TERMINATOR, __FILE__, __LINE__, __func__, ##__VA_ARGS__); \
+        fflush(stderr);                                                                                                \
+        \                                                                                                              \
     }
 #endif // dbprintf
 
 #ifndef bprintf
-#define bprintf(str, ...)                     \
-    {                                         \
+#define bprintf(str, ...)                      \
+    0;                                         \
+    {                                          \
         printf(str TERMINATOR, ##__VA_ARGS__); \
-        fflush(stdout);                       \
+        fflush(stdout);                        \
     }
 #endif // bprintf
 
 #ifndef bprintlf
-#define bprintlf(str, ...)                       \
-    {                                            \
+#define bprintlf(str, ...)                           \
+    0;                                               \
+    {                                                \
         printf(str TERMINATOR " \n", ##__VA_ARGS__); \
-        fflush(stdout);                          \
+        fflush(stdout);                              \
     }
 #endif // bprintlf
 
@@ -100,11 +195,12 @@
 #ifdef _ERRNO_H
 #ifdef _STRING_H
 #ifndef erprintlf
-#define erprintlf(error)                                                      \
-    {                                                                         \
+#define erprintlf(error)                                                                        \
+    0;                                                                                          \
+    {                                                                                           \
         fprintf(stderr, "[%s:%d | %s] " RED_FG "ERRNO >>> %d:" RESET_ALL " %s" TERMINATOR "\n", \
-                __FILE__, __LINE__, __func__, error, strerror(error));        \
-        fflush(stderr);                                                       \
+                __FILE__, __LINE__, __func__, error, strerror(error));                          \
+        fflush(stderr);                                                                         \
     }
 #endif // erprintlf
 #endif // _STRING_H
@@ -117,30 +213,29 @@ static char *get_time_now()
     static __thread char buf[128];
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    snprintf(buf, sizeof(buf), YELLOW_FG "[" YELLOW_FG "%02d:%02d:%02d" YELLOW_FG "] "
-                                        TERMINATOR,
+    snprintf(buf, sizeof(buf), YELLOW_FG "[" YELLOW_FG "%02d:%02d:%02d" YELLOW_FG "] " TERMINATOR,
              tm.tm_hour, tm.tm_min, tm.tm_sec);
     return buf;
 }
 
 #ifndef tprintf
-#define tprintf(str, ...)                                          \
-    {                                                              \
+#define tprintf(str, ...)                                           \
+    0;                                                              \
+    {                                                               \
         printf("%s" str TERMINATOR, get_time_now(), ##__VA_ARGS__); \
-        fflush(stdout);                                            \
+        fflush(stdout);                                             \
     }
 #endif
 
 #ifndef tprintlf
-#define tprintlf(str, ...)                                           \
-    {                                                                \
+#define tprintlf(str, ...)                                               \
+    0;                                                                   \
+    {                                                                    \
         printf("%s" str TERMINATOR "\n", get_time_now(), ##__VA_ARGS__); \
-        fflush(stdout);                                              \
+        fflush(stdout);                                                  \
     }
 #endif
 #endif // _TIME_H
+#endif // _MSC_VER
 
-
-#endif // _STDIO_H
-
-#endif // MEB_DEBUG_H
+#endif // MEB_PRINT_H
