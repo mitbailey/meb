@@ -1,5 +1,5 @@
 /**
- * @file gs_print.h
+ * @file meb_print.h
  * @author Mit Bailey (mitbailey99@gmail.com)
  * @brief Contains debug-related macros and function-like macros.
  * @version 1.1
