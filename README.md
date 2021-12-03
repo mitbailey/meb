@@ -24,7 +24,7 @@ Each function-like macro name takes the form
    - Displays filename, line number, and function name.
    - Does not support MEB colors.
  - t
-   - Displays current system time to minute accuracy.
+   - Displays current system time to second accuracy.
    - Supports MEB colors.
 
  and `<suffix>` is:
