@@ -2,8 +2,7 @@
 Helpful code snippets and references.
 
 # Troubleshooting
-`warning: implicit declaration of function`   
-These warnings may be indicative of a failure to `#include` the proper C-header files. For instance, if you invoke `tprintlf(...)` without including `time.h`, you will likely receive this warning.
+None.
 
 # meb_debug.h
 stderr-based debug printouts for C programs.

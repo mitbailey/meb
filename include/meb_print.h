@@ -15,6 +15,9 @@
 #define MEB_PRINT_H
 
 #include <stdio.h>
+#include <string.h>
+#include <time.h>
+#include <errno.h>
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
 #define TERMINATOR
@@ -39,7 +42,9 @@
 #define MEB_CODES
 #define FATAL "(FATAL) "
 #endif // MEB_CODES
-#else
+
+#else // defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+
 #define TERMINATOR "\x1b[0m"
 #ifndef MEB_COLORS
 #define MEB_COLORS
@@ -62,9 +67,10 @@
 #define MEB_CODES
 #define FATAL "\033[1m\x1b[107m\x1b[31m(FATAL) "
 #endif // MEB_CODES
-#endif
+#endif // defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
 
 #if !defined(_MSC_VER)
+
 #ifndef dbprintlf
 #define dbprintlf(format, ...)                                                                                                  \
     (                                                                                                                           \
@@ -105,9 +111,6 @@
         })
 #endif // bprintlf
 
-// Intended for use with errno.h; also requires string.h.
-#ifdef _ERRNO_H
-#ifdef _STRING_H
 #ifndef erprintlf
 #define erprintlf(error)                                                                                          \
     (                                                                                                             \
@@ -118,11 +121,7 @@
             _meb_rc;                                                                                              \
         })
 #endif // erprintlf
-#endif // _STRING_H
-#endif // _ERRNO_H
 
-// Requires time.h.
-#ifdef _TIME_H
 static char *get_time_now()
 {
     static __thread char buf[128];
@@ -151,9 +150,10 @@ static char *get_time_now()
             fflush(stdout);                                                                \
             _meb_rc;                                                                       \
         })
-#endif
-#endif // _TIME_H
-#else
+#endif // tprintlf
+
+#else // !defined(_MSC_VER)
+
 #ifndef dbprintlf
 #define dbprintlf(format, ...)                                                                                \
     0;                                                                                                        \
@@ -191,9 +191,6 @@ static char *get_time_now()
     }
 #endif // bprintlf
 
-// Intended for use with errno.h; also requires string.h.
-#ifdef _ERRNO_H
-#ifdef _STRING_H
 #ifndef erprintlf
 #define erprintlf(error)                                                                        \
     0;                                                                                          \
@@ -203,11 +200,7 @@ static char *get_time_now()
         fflush(stderr);                                                                         \
     }
 #endif // erprintlf
-#endif // _STRING_H
-#endif // _ERRNO_H
 
-// Requires time.h.
-#ifdef _TIME_H
 static char *get_time_now()
 {
     static __thread char buf[128];
@@ -225,7 +218,7 @@ static char *get_time_now()
         printf("%s" str TERMINATOR, get_time_now(), ##__VA_ARGS__); \
         fflush(stdout);                                             \
     }
-#endif
+#endif // tprintf
 
 #ifndef tprintlf
 #define tprintlf(str, ...)                                               \
@@ -234,8 +227,7 @@ static char *get_time_now()
         printf("%s" str TERMINATOR "\n", get_time_now(), ##__VA_ARGS__); \
         fflush(stdout);                                                  \
     }
-#endif
-#endif // _TIME_H
+#endif // tprintlf
 #endif // _MSC_VER
 
 #endif // MEB_PRINT_H
