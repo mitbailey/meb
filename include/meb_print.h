@@ -1,18 +1,18 @@
 /**
- * @file gs_debug.h
+ * @file gs_print.h
  * @author Mit Bailey (mitbailey99@gmail.com)
  * @brief Contains debug-related macros and function-like macros.
- * @version 1.0
+ * @version 1.1
  * @date 2021.07.26
  *
- * With revisions by Sunip K. Mukherjee.
+ * With revisions by Sunip K. Mukherjee (sunipkmukherjee@gmail.com).
  *
  * @copyright Copyright (c) 2021
  *
  */
 
-#ifndef MEB_DEBUG_H
-#define MEB_DEBUG_H
+#ifndef MEB_PRINT_H
+#define MEB_PRINT_H
 
 #if defined(_STDIO_H) || defined(_INC_STDIO)
 
@@ -102,7 +102,7 @@
 #ifndef erprintlf
 #define erprintlf(error)                                                      \
     {                                                                         \
-        fprintf(stderr, "[%s:%d | %s] " RED_FG "ERRNO >>> %d:"RESET_ALL" %s" TERMINATOR "\n", \
+        fprintf(stderr, "[%s:%d | %s] " RED_FG "ERRNO >>> %d:" RESET_ALL " %s" TERMINATOR "\n", \
                 __FILE__, __LINE__, __func__, error, strerror(error));        \
         fflush(stderr);                                                       \
     }
@@ -117,7 +117,7 @@ static char *get_time_now()
     static __thread char buf[128];
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    snprintf(buf, sizeof(buf), GREEN_FG "[" YELLOW_FG "%02d:%02d:%02d" GREEN_FG "] "
+    snprintf(buf, sizeof(buf), YELLOW_FG "[" YELLOW_FG "%02d:%02d:%02d" YELLOW_FG "] "
                                         TERMINATOR,
              tm.tm_hour, tm.tm_min, tm.tm_sec);
     return buf;

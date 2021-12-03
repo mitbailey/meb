@@ -13,18 +13,23 @@
 #include <string.h>
 #include <errno.h>
 #include <math.h>
-#include "meb_debug.h"
-#include "meb_constants.h"
+#include <time.h>
+#include "meb_print.h"
+#include "meb_convert.h"
 
 int main()
 {
     dbprintf(BLUE_FG "dbprintf(...) with BLUE_FG\n");
     dbprintlf(GREEN_FG "dbprintlf(...) with GREEN_FG");
     dbprintlf(YELLOW_FG BLUE_BG "dbprintlf(...) with YELLOW_FG BLUE_BG");
+
+    dbprintlf("45 degrees is %.02f radians.", DEG_TO_RAD(45));
+    bprintlf("0.5 radians is %.02f degrees.", RAD_TO_DEG(0.5));
+
+    bprintf("1 second is %d microseconds.\n", SEC_TO_USEC(1));
+
+    tprintlf("This should print the time, with an automatic newline.");
+    tprintf("This should look the same, but with a manual newline.\n");
+
     erprintlf(errno);
-
-    dbprintlf("45 degrees is %.02f radians.", DEG2RAD(45));
-    dbprintlf("0.5 radians is %.02f degrees.", RAD2DEG(0.5));
-
-    dbprintlf("1 second is %d microseconds.", 1 SEC);
 }

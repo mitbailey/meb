@@ -1,16 +1,16 @@
 /**
- * @file meb_constants.h
+ * @file meb_convert.h
  * @author Mit Bailey (mitbailey99@gmail.com)
  * @brief 
- * @version v1.0
+ * @version v1.1
  * @date 2021.11.02
  * 
  * @copyright Copyright (c) 2021
  * 
  */
 
-#ifndef MEB_CONSTANTS_H
-#define MEB_CONSTANTS_H
+#ifndef MEB_CONVERT_H
+#define MEB_CONVERT_H
 
 // Requires math.h or equivalent M_PI definition.
 #ifdef M_PI
