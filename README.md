@@ -15,16 +15,24 @@ Each function-like macro name takes the form
  - db
    - Displays filename, line number, and function name.
    - Supports MEB colors.
+   - Outputs to `stderr`.
+   - Return type `void`.
  - b
    - Includes no pre-formatted string text.
    - Supports MEB colors.
+   - Outputs to `stdout`.
+   - Returns numbers of characters written to `stdout`.
  - er
    - Prints an `stderror.h` error.
    - Displays filename, line number, and function name.
    - Does not support MEB colors.
+   - Outputs to `stderr`
+   - Return type `void`.
  - t
    - Displays current system time to second accuracy.
    - Supports MEB colors.
+   - Outputs to `stderr`
+   - Return type `void`.
 
  and `<suffix>` is:
  - lf
