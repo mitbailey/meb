@@ -143,7 +143,7 @@
 #endif // bprintf
 
 #ifndef bprintlf
-#define bprintf(str, ...)                       \
+#define bprintlf(str, ...)                       \
     printf(str TERMINATOR "\n", ##__VA_ARGS__);
 #endif // bprintlf
 
