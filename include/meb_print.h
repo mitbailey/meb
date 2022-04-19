@@ -2,7 +2,7 @@
  * @file meb_print.h
  * @author Mit Bailey (mitbailey99@gmail.com)
  * @brief Contains debug-related macros and function-like macros.
- * @version 1.1
+ * @version See Git tags for version information.
  * @date 2021.07.26
  *
  * With revisions by Sunip K. Mukherjee (sunipkmukherjee@gmail.com).

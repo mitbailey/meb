@@ -1,12 +1,12 @@
 CC = gcc
-COBJS = src/main.o
+COBJS = src/print_test.o
 EDCFLAGS = -I ./ -I ./include/ -Wall -pthread $(CFLAGS)
 EDLDFLAGS :=
-TARGET = sim.out
+TARGET = print_test.out
 
 all: $(COBJS)
 	$(CC) $(EDCFLAGS) $(COBJS) -o $(TARGET) $(EDLDFLAGS)
-	sudo ./$(TARGET)
+	./$(TARGET)
 
 %.o: %.c
 	$(CC) $(EDCFLAGS) -o $@ -c $<
@@ -17,8 +17,3 @@ clean:
 	$(RM) *.out
 	$(RM) *.o
 	$(RM) src/*.o
-
-# .PHONY: spotless
-
-# spotless:
-# 	$(RM) drivers/*.o

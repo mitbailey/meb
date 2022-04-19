@@ -1,38 +1,45 @@
 # meb
 Helpful code snippets and references.
 
-# Troubleshooting
-None.
+# Examples
 
-# meb_debug.h
+The `examples/` directory contains example Makefiles for C and C++ programs.
+
+The file `src/meb_print.h` contains an example program for using the `meb_print.h` library.
+
+# meb_print.h
 stderr-based debug printouts for C programs.
-  
     
-Created by Mit Bailey with revisions by Sunip K. Mukherjee.
+_Created by Mit Bailey with revisions by Sunip K. Mukherjee._
 
 Each function-like macro name takes the form
 `<prefix>print<suffix>(...)`, where `<prefix>` is:
- - db
-   - Displays filename, line number, and function name.
-   - Supports MEB colors.
-   - Outputs to `stderr`.
-   - Return type `void`.
+
  - b
    - Includes no pre-formatted string text.
    - Supports MEB colors.
    - Outputs to `stdout`.
    - Returns numbers of characters written to `stdout`.
+
+ - t
+   - Displays current system time to second accuracy.
+   - Supports MEB colors.
+   - Outputs to `stderr`
+   - Return type `void`.
+
+ - db
+   - Displays filename, line number, and function name.
+   - Supports MEB colors.
+   - Outputs to `stderr`.
+   - Return type `void`.
+
  - er
    - Prints an `stderror.h` error.
    - Displays filename, line number, and function name.
    - Does not support MEB colors.
    - Outputs to `stderr`
    - Return type `void`.
- - t
-   - Displays current system time to second accuracy.
-   - Supports MEB colors.
-   - Outputs to `stderr`
-   - Return type `void`.
+
 
  and `<suffix>` is:
  - lf
@@ -51,12 +58,12 @@ tprintf(str, ...)
 tprintlf(str, ...)
 ```
 
-# meb_constants.h
-Contains converter function-like macros.
+Also included is a print-level mask `MEB_DBGLVL`, where only the relevant prints are allowed. By default, `MEB_DBGLVL` is set to `#define MEB_DBG_ALL (MEB_DBG_BPRINT | MEB_DBG_TPRINT | MEB_DBG_DBPRINT | MEB_DBG_ERPRINT)` if the user does not `#define MEB_DBGLVL` to some value.
 
-List of all function-like macros:
+List of all level masks:
 ```
-RAD_TO_DEG(radians)
-DEG_TO_RAD(degrees)
-SEC_TO_USEC(seconds)
+MEB_DBG_BPRINT
+MEB_DBG_TPRINT
+MEB_DBG_DBPRINT
+MEB_DBG_ERPRINT
 ```
