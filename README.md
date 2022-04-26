@@ -1,5 +1,5 @@
 # meb
-Helpful code snippets and references.
+Header-only advanced print function library for C programs.
 
 # Examples
 
