@@ -3,9 +3,7 @@ Header-only advanced print function library for C programs.
 
 # Examples
 
-The `examples/` directory contains example Makefiles for C and C++ programs.
-
-The file `src/meb_print.h` contains an example program for using the `meb_print.h` library.
+The file `meb_print_example.c` contains an example program for using the `meb_print.h` library.
 
 # meb_print.h
 stderr-based debug printouts for C programs.

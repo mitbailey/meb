@@ -1,8 +1,8 @@
 CC = gcc
-COBJS = src/print_test.o
+COBJS = meb_print_example.o
 EDCFLAGS = -I ./ -I ./include/ -Wall -pthread $(CFLAGS)
 EDLDFLAGS :=
-TARGET = print_test.out
+TARGET = meb_print_example.out
 
 all: $(COBJS)
 	$(CC) $(EDCFLAGS) $(COBJS) -o $(TARGET) $(EDLDFLAGS)
