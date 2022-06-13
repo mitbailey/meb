@@ -49,18 +49,22 @@
 #ifndef MEB_COLORS
 #define MEB_COLORS
 #define RESET_ALL
+#define BLACK_FG
 #define RED_FG
 #define GREEN_FG
 #define YELLOW_FG
 #define BLUE_FG
 #define MAGENTA_FG
 #define CYAN_FG
+#define WHITE_FG
+#define BLACK_BG
 #define RED_BG
 #define GREEN_BG
 #define YELLOW_BG
 #define BLUE_BG
 #define MAGENTA_BG
 #define CYAN_BG
+#define WHITE_BG
 #endif // MEB_COLORS
 
 #ifndef MEB_CODES
@@ -74,19 +78,33 @@
 #ifndef MEB_COLORS
 #define MEB_COLORS
 #define RESET_ALL TERMINATOR
+#define BLACK_FG "\x1b[30m"
 #define RED_FG "\x1b[91m"
 #define GREEN_FG "\x1b[92m"
 #define YELLOW_FG "\x1b[33m"
 #define BLUE_FG "\x1b[94m"
 #define MAGENTA_FG "\x1b[95m"
 #define CYAN_FG "\x1b[96m"
+#define WHITE_FG "\x1b[97m"
+#define BLACK_BG "\x1b[40m"
 #define RED_BG "\x1b[101m"
 #define GREEN_BG "\x1b[102m"
 #define YELLOW_BG "\x1b[43m"
 #define BLUE_BG "\x1b[104m"
 #define MAGENTA_BG "\x1b[105m"
 #define CYAN_BG "\x1b[106m"
+#define WHITE_BG "\x1b[107m"
 #endif // MEB_COLORS
+
+#ifndef MEB_FORMATS
+#define MEB_FORMATS
+#define BOLD_ON "\x1b[1m"
+#define BOLD_OFF "\x1b[21m"
+#define UNDER_ON "\x1b[4m"
+#define UNDER_OFF "\x1b[24m"
+#define BLINK_ON "\x1b[5m"
+#define BLINK_OFF "\x1b[25m"
+#endif // MEB_FORMATS
 
 #ifndef MEB_CODES
 #define MEB_CODES
