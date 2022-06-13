@@ -65,6 +65,12 @@
 #define MAGENTA_BG
 #define CYAN_BG
 #define WHITE_BG
+#define BOLD_ON
+#define BOLD_OFF
+#define UNDER_ON
+#define UNDER_OFF
+#define BLINK_ON
+#define BLINK_OFF
 #endif // MEB_COLORS
 
 #ifndef MEB_CODES
