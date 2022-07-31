@@ -1,6 +1,6 @@
 /**
  * @file meb_print.h
- * @author Mit Bailey (mitbailey99@gmail.com)
+ * @author Mit Bailey (mitbailey@outlook.com)
  * @brief Contains debug-related macros and function-like macros.
  * @version See Git tags for version information.
  * @date 2021.07.26
